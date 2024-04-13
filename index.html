@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <title>Quarter 4 Output</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Quarter 4 Output</h1>
+    </header>
+    <main>
+        <p>Welcome to my webpage!</p>
+        <p>This is my output for Quarter 4.</p>
+        <p>Check out my <a href="https://youtu.be/4vbaX1Q230U">YouTube video</a>.</p>
+        <p>Visit <a href="another-page.html">another page</a> for more.</p>
+        <div class="media">
+            <div id="player"></div>
+        </div>
+        <button onclick="playVideo()">Play Video</button>
+    </main>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var videoID = '4vbaX1Q230U';
+        var player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: videoID,
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,
+                    'start': 12,
+                    'controls': 1,
+                    'enablejsapi': 1,
+                    'origin': window.location.origin
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            console.log('Player is ready');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                console.log('Video is playing');
+                player.unMute();
+            }
+        }
+
+        function playVideo() {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+        }
+    </script>
+</body>
+</html>
